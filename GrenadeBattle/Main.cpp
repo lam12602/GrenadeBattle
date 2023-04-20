@@ -1,26 +1,26 @@
 #include <SFML/Graphics.hpp>
+#include "Game.h"
+#include <stdlib.h>
+#include <time.h>
+#include "AssetManager.h"
 
 
 int main()
 
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    //initalise the random number generator
+    srand(time(NULL));
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+    //Create game
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    Game gameInstance;
+
+    gameInstance.RunGameLoop();
+
+
+    AssetManager::DestroyAllAssets();
+
+    //if we get here game is over end program by returning
 
     return 0;
 }
