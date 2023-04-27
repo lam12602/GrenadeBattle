@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "Screen.h"
-//#include "LevelScreen.h"
+#include "LevelScreen.h"
 
 Game::Game()
 	:window(sf::VideoMode::getDesktopMode(), "Grenade Battle", sf::Style::Titlebar | sf::Style::Close)
@@ -9,7 +9,7 @@ Game::Game()
 {
 	window.setMouseCursorVisible(false);
 	//set up screen
-	//currentScreen = new LevelScreen(this);
+	currentScreen = new LevelScreen(this);
 }
 
 void Game::RunGameLoop()
