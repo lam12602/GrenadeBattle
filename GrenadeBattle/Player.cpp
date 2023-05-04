@@ -19,8 +19,8 @@ Player::Player()
 {
 	sprite.setTexture(AssetManager::RequestTexture("Assets/Graphics/player_1_stand.png"));
 
-	collisionoffset = sf::Vector2f(0, 30);
-	collisionscale = sf::Vector2f(0.5f, 0.5f);
+	collisionoffset = sf::Vector2f(0, 0);
+	collisionscale = sf::Vector2f(1.0f, 1.0f);
 	collisionType = CollisionType::CIRCLE;
 }
 
@@ -83,6 +83,15 @@ void Player::Update(sf::Time frameTime)
 
 void Player::HandelCollision(SpriteObject& other)
 {
+	sf::Vector2f depth = GetCollisionDepth(other);
+	sf::Vector2f newPos = GetPosition();
+
+	if (abs(depth.x) < abs(depth.y))
+	{
+		newPos.x += depth.x;
+		velocity.x = 0;
+		acceleration.x = 0;
+	}
 }
 
 void Player::UpdateAcceleration()

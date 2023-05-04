@@ -31,7 +31,7 @@ void SpriteObject::Draw(sf::RenderTarget& target)
 
 	if (drawCollider)
 	{
-
+		//Practical Task - Collision Geometry
 		switch (collisionType)
 		{
 		case CollisionType::CIRCLE:

@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-
+class Platform;
 
 class LevelScreen :
     public Screen
@@ -29,7 +29,7 @@ private:
 
 
     Player player;
-
+    std::vector<Platform*> platforms;
     
     bool gameRunning;
 
