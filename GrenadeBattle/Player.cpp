@@ -16,16 +16,33 @@ Player::Player()
 	, velocity()
 	, acceleration()
 	, playerNO(1)
+	, pips()
 {
 	sprite.setTexture(AssetManager::RequestTexture("Assets/Graphics/player_1_stand.png"));
 
 	collisionoffset = sf::Vector2f(0, 0);
 	collisionscale = sf::Vector2f(1.0f, 1.0f);
 	collisionType = CollisionType::CIRCLE;
+
+	//add sprite to my pips
+	const int NUMPIPS = 5;
+	for (int i = 0; i < NUMPIPS; ++i)
+	{
+		pips.push_back(sf::Sprite());
+		pips[i].setTexture(AssetManager::RequestTexture("Assets/Graphics/pip.png"));
+	}
 }
 
 void Player::Update(sf::Time frameTime)
 {
+	float pipTime = 0;
+	float pipTimeStep = 1.0f;
+	for (int i = 0; i < pips.size(); ++i)
+	{
+		pips[i].setPosition(GetPipPosition(pipTime));
+		pipTime += pipTimeStep;
+	}
+
 	const float DRAG_MULT = 10.0f;
 	const PhysicsType physics = PhysicsType::FORWARD_EULER;
 
@@ -78,6 +95,18 @@ void Player::Update(sf::Time frameTime)
 
 	default:
 		break;
+
+
+
+	}
+
+}
+
+void Player::Draw(sf::RenderTarget& target)
+{
+	for (int i = 0; i < pips.size(); ++i)
+	{
+		target.draw(pips[i]);
 	}
 }
 
@@ -111,6 +140,17 @@ void Player::UpdateAcceleration()
 	{
 		acceleration.x = ACCEL;
 	}
+}
+
+sf::Vector2f Player::GetPipPosition(float pipTime)
+{
+	sf::Vector2f pipPosiiton;
+
+	pipPosiiton = sf::Vector2f(0, 1000) * pipTime * pipTime + sf::Vector2f(500, -1000) * pipTime + sf::Vector2f(500, 500);
+
+
+
+	return pipPosiiton;
 }
 
 
